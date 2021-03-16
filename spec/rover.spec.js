@@ -40,8 +40,8 @@ describe("Rover class", function() {
     let responseMessage = roverGuy.receiveMessage(testMessage)
     let statusUpdate = responseMessage.results[1]
     expect(responseMessage.results[1].roverStatus.mode).toEqual(`LOW_POWER`);
-    expect(roverGuy.generatorWatts).toEqual(110)
-    expect(roverGuy.position).toEqual(12345)
+    expect(responseMessage.results[1].roverStatus.generatorWatts).toEqual(110)
+    expect(responseMessage.results[1].roverStatus.position).toEqual(12345)
   })
 
   it(`responds correctly to mode change command`, function () {
