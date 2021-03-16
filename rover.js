@@ -12,32 +12,37 @@ class Rover {
        results: []
      }
 
-    let roverStatus = {
+    /*let roverStatus = {
        mode: this.mode,
        generatorWatts: this.generatorWatts,
        position: this.position
-     }
+    }*/
      
      for (let i=0; i < incomingMessage.commands.length; i++) {
        let currentCommand = incomingMessage.commands[i]
+       let response = {completed:true,roverStatus:""}
        if (currentCommand.commandType === `MOVE`) {
          if(this.mode === `NORMAL`) {
-          returnMessage.results.push(`completed: true`)
+          response.completed = true
+          returnMessage.results.push(response)
           this.position = currentCommand.value
-          roverStatus.position = currentCommand.value
          } else if (this.mode === `LOW_POWER`) {
-           returnMessage.results.push(`completed: false`)
+           response.completed = false
+           returnMessage.results.push(response)
          }
        } else if (currentCommand.commandType === `STATUS_CHECK`) {
-        returnMessage.results.push(`completed: true, ${roverStatus}`)
+         response.completed = true
+         response.roverStatus = {mode: this.mode, generatorWatts: this.generatorWatts, position: this.position}
+        returnMessage.results.push(response)
        } else if (currentCommand.commandType === `MODE_CHANGE`) {
          if (currentCommand.value === `LOW_POWER` || currentCommand.value === `NORMAL`) {
           this.mode = currentCommand.value
-          roverStatus.mode = this.mode
          }
-         returnMessage.results.push(`completed: true`)
+         response.completed = true
+         returnMessage.results.push(response)
        } else {
-         returnMessage.results.push(`completed: false`)
+         response.completed = false
+         returnMessage.results.push(response)
        }
 //console.log(roverStatus)
        

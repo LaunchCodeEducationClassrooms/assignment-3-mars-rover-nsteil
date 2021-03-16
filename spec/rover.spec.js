@@ -39,7 +39,7 @@ describe("Rover class", function() {
     let testMessage =  new Message(`test message for jasmine`, commands)
     let responseMessage = roverGuy.receiveMessage(testMessage)
     let statusUpdate = responseMessage.results[1]
-    expect(roverGuy.mode).toEqual(`LOW_POWER`);
+    expect(responseMessage.results[1].roverStatus.mode).toEqual(`LOW_POWER`);
     expect(roverGuy.generatorWatts).toEqual(110)
     expect(roverGuy.position).toEqual(12345)
   })
@@ -57,7 +57,7 @@ describe("Rover class", function() {
     let commands = [new Command(`MODE_CHANGE`, `LOW_POWER`), new Command('MOVE',784951)]
     let testMessage =  new Message(`test message for jasmine`, commands)
     let responseMessage = roverGuy.receiveMessage(testMessage)
-    expect(responseMessage.results[1]).toEqual(`completed: false`)
+    expect(responseMessage.results[1].completed).toEqual(false)
   })
 
   it (`responds with position for move command`, function() {
