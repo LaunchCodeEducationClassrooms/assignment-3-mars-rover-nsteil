@@ -31,7 +31,6 @@ describe("GRADING TEST: ", function() {
     let response = rover.receiveMessage(message);
     expect(response.message).toEqual('TA power');
     expect(response.results[0].completed).toBeTrue;
-    console.log(response.results[1])
     expect(response.results[1].roverStatus.position).toEqual(4321);
     expect(response.results[2].completed).toBeTrue;
     expect(response.results[3].completed).toBeFalse;
